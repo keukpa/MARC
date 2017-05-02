@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <time.h>
 
 
 int fd;
@@ -11,6 +12,9 @@ char *commport = "/dev/ttyUSB0";
 char cmdBuf[6];
 
 int writeData(int, int, int, int);
+int moveRollEyes( void );
+int moveTestHand( void );
+int moveShakeHand( void );
 
 int setCommPort( int fd, int speed )
 {
@@ -108,7 +112,7 @@ int main (void)
 
     printf("Setting up COMPORT.\n");
     setCommPort(fd, B19200);
-
+/*
     //Manual Servo Control
     while(1)
     {
@@ -143,6 +147,125 @@ int main (void)
             setServoPos(servoPos, theServo);
         }
     }
+*/
+moveShakeHand();
 
     return 0;
+}
+
+int moveTestHand( void )
+{
+    int f1Min = 2800;
+    int f2Min = 1500;
+    int f3Min = 1700;
+    int f4Min = 1500;
+    int f5Min = 1600;
+
+    int f1Max = 4200;
+    int f2Max = 4200;
+    int f3Max = 4200;
+    int f4Max = 4300;
+    int f5Max = 4200;
+
+    setServoPos(f2Min, 1);
+    sleep(2);
+    setServoPos(f3Min, 2);
+    sleep(2);
+    setServoPos(f4Min, 3);
+    sleep(2);
+    setServoPos(f5Min, 4);
+    sleep(2);
+    setServoPos(f1Min, 0);
+    sleep(2);
+
+    setServoPos(f1Max, 0);
+    sleep(2);
+    setServoPos(f2Max, 1);
+    sleep(2);
+    setServoPos(f3Max, 2);
+    sleep(2);
+    setServoPos(f4Max, 3);
+    sleep(2);
+    setServoPos(f5Max, 4);
+    sleep(2);
+
+
+    return 0;
+}
+
+int moveShakeHand( void )
+{
+    int f1Min = 3600;
+    int f2Min = 2890;
+    int f3Min = 2300;
+    int f4Min = 2300;
+    int f5Min = 2400;
+
+    int f1Max = 4200;
+    int f2Max = 4200;
+    int f3Max = 4200;
+    int f4Max = 4300;
+    int f5Max = 4200;
+
+    setServoPos(f2Max, 1);
+    setServoPos(f3Max, 2);
+    setServoPos(f4Max, 3);
+    setServoPos(f5Max, 4);
+    setServoPos(f1Max, 0);
+    sleep(5);
+
+    setServoPos(f1Min, 0);
+    setServoPos(f2Min, 1);
+    setServoPos(f3Min, 2);
+    setServoPos(f4Min, 3);
+    setServoPos(f5Min, 4);
+    sleep(5);
+
+    setServoPos(f2Max, 1);
+    setServoPos(f3Max, 2);
+    setServoPos(f4Max, 3);
+    setServoPos(f5Max, 4);
+    setServoPos(f1Max, 0);
+    sleep(5);
+
+
+    return 0;
+}
+
+
+int moveRollEyes( void )
+{
+    int eyeLRMin = 2600;
+    int eyeLRMax = 3100;
+    int eyeUDMin = 2600;
+    int eyeUDMax = 4200;
+
+    setServoPos(eyeLRMin, 1);
+    setServoPos(eyeUDMin, 0);
+
+    sleep(1);
+
+    setServoPos(eyeLRMax, 1);
+
+    sleep(1);
+
+    setServoPos(eyeUDMax, 0);
+
+    sleep(1);
+
+    setServoPos(eyeLRMin, 1);
+
+    sleep(1);
+
+    setServoPos(eyeUDMin, 0);
+
+    sleep(1);
+
+    setServoPos(3300, 0);
+    setServoPos(2900, 1);
+    sleep(1);
+
+
+    return 0;
+
 }
